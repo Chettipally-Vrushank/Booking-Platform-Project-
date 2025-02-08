@@ -1,0 +1,103 @@
+/* General styling for body and fonts */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+
+
+/* Navigation Bar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #003366;
+    padding: 10px 20px;
+}
+
+.navbar .logo a {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* About Section Styling */
+.about {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    background-color: white;
+    margin: 20px 0;
+}
+
+.about-content {
+    width: 60%;
+    padding-right: 20px;
+}
+
+.about-content h2 {
+    font-size: 32px;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.about-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+/* Train Image Styling */
+.train-img img {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #003366;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .about {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about-content {
+        width: 100%;
+        padding-right: 0;
+    }
+    .train-img {
+        margin-top: 20px;
+    }
+}
