@@ -1,6 +1,7 @@
 from flask import redirect,render_template,url_for,flash,request,session
 from train import db,app,bcrypt
 from train.models import User
+import sqlite3
 
 # Routes
 @app.route("/")
@@ -46,7 +47,15 @@ def register():
 def dashboard():
     if "user_id" not in session:
         return redirect(url_for("login"))
-    return render_template("dashboard.html", name=session["user_name"])
+    conn = sqlite3.connect("trains.db")
+    cursor = conn.cursor()
+
+    # Get unique station names from the database
+    cursor.execute("SELECT DISTINCT Station_Name FROM train_schedule")
+    stations = [row[0] for row in cursor.fetchall()]
+
+    conn.close()
+    return render_template("dashboard.html", name=session["user_name"], stations=stations)
 
 
 @app.route("/logout")
@@ -64,3 +73,24 @@ def about():
 def carousel_page():
     return render_template('carousel.html')
 
+@app.route("/results", methods=["GET"])
+def results():
+    from_station = request.args.get("from")
+    to_station = request.args.get("to")
+    date = request.args.get("date")
+
+    conn = sqlite3.connect("trains.db")
+    cursor = conn.cursor()
+
+    # Query trains between selected stations
+    query = """
+        SELECT Train_No, Train_Name, Arrival_Time, Departure_Time, Distance, General_Fare, Sleeper_Fare, AC_Fare
+        FROM train_schedule
+        WHERE Source_Station_Name = ? AND Destination_Station_Name = ?
+    """
+    cursor.execute(query, (from_station, to_station))
+    trains = cursor.fetchall()
+    
+    conn.close()
+
+    return render_template("results.html", trains=trains, from_station=from_station, to_station=to_station, date=date)

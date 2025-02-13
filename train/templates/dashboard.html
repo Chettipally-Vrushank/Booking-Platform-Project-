@@ -23,15 +23,26 @@
     <br><br>
     <div class="main-container">
         <div class="container">
-            <form id="train-search-form" action="">
+            
+            <form id="train-search-form" action="{{ url_for('results') }}" method="GET">
                 <div class="form-group">
                     <label for="from">From:</label>
-                    <input type="text" id="from" name="from" placeholder="Enter Source" required>
+                    <select id="from" name="from" required>
+                        <option value="" disabled selected>Select Source</option>
+                        {% for station in stations %}
+                        <option value="{{ station }}">{{ station }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="to">To:</label>
-                    <input type="text" id="to" name="to" placeholder="Enter Destination" required>
+                    <select id="to" name="to" required>
+                        <option value="" disabled selected>Select Destination</option>
+                        {% for station in stations %}
+                        <option value="{{ station }}">{{ station }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <br>
                 <div class="form-group">
@@ -40,8 +51,7 @@
                 </div>
                 <br>
                 <button type="submit">Search</button>
-            </form>
-
+            </form>            
             
         </div>
         

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Search Results</title>
+    <link rel="stylesheet" href="/static/dstyle.css">
+</head>
+<body>
+    <h2>Available Trains from {{ from_station }} to {{ to_station }} on {{ date }}</h2>
+
+    {% if trains %}
+    <table>
+        <tr>
+            <th>Train No</th>
+            <th>Train Name</th>
+            <th>Arrival Time</th>
+            <th>Departure Time</th>
+            <th>Distance (km)</th>
+            <th>General Fare</th>
+            <th>Sleeper Fare</th>
+            <th>AC Fare</th>
+        </tr>
+        {% for train in trains %}
+        <tr>
+            <td>{{ train[0] }}</td>
+            <td>{{ train[1] }}</td>
+            <td>{{ train[2] }}</td>
+            <td>{{ train[3] }}</td>
+            <td>{{ train[4] }}</td>
+            <td>{{ train[5] }}</td>
+            <td>{{ train[6] }}</td>
+            <td>{{ train[7] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No trains found between {{ from_station }} and {{ to_station }}.</p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('dashboard') }}">Back to Search</a>
+</body>
+</html>
