@@ -60,15 +60,6 @@ def about():
 
 
 
-@app.route('/search_trains', methods=['POST'])
-def search_trains():
-    # Logic for searching trains
-    from_station = request.form['from']
-    to_station = request.form['to']
-    travel_date = request.form['date']
-    # Add your processing logic here
-    return f"Searching trains from {from_station} to {to_station} on {travel_date}"
-
 @app.route('/carousel')
 def carousel_page():
     return render_template('carousel.html')
