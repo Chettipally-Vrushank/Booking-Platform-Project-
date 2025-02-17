@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard - Train Ticket Reservation</title>
     <link rel="stylesheet" href="/static/dstyle.css">
-
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav>
         <div class="navbar">
             <div class="logo">
+                <img src="/static/logo.jpg" alt="Logo" class="logo-img">
                 <h1>Train Ticket Reservation</h1>
             </div>
             <div class="nav-links">
@@ -20,10 +25,10 @@
             </div>
         </div>
     </nav>
-    <br><br>
-    <div class="main-container">
-        <div class="container">
-            
+    <!-- Dashboard Content -->
+    <section class="dashboard-hero">
+        <div class="dashboard-container">
+            <h2>Search for Trains</h2>
             <form id="train-search-form" action="{{ url_for('results') }}" method="GET">
                 <div class="form-group">
                     <label for="from">From:</label>
@@ -34,7 +39,6 @@
                         {% endfor %}
                     </select>
                 </div>
-                <br>
                 <div class="form-group">
                     <label for="to">To:</label>
                     <select id="to" name="to" required>
@@ -44,25 +48,24 @@
                         {% endfor %}
                     </select>
                 </div>
-                <br>
                 <div class="form-group">
                     <label for="date">Date:</label>
                     <input type="date" id="date" name="date" required>
                 </div>
-                <br>
-                <button type="submit">Search</button>
-            </form>            
-            
+                <button type="submit" class="cta-button">Search</button>
+            </form>
         </div>
-        
-        <div class="sliding">
-            <iframe src="{{url_for('carousel_page')}}" style="border:none;"></iframe>
-        </div>
-    </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Train Ticket Reservation. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
     </footer>
 </body>
 </html>
-
-

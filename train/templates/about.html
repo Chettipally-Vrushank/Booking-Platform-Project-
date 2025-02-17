@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - Train Ticket Reservation</title>
     <link rel="stylesheet" href="/static/abstyle.css">
-    <!-- You can also include any Bootstrap or font-awesome libraries here for better styling -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav>
         <div class="navbar">
             <div class="logo">
-                <a  href="{{url_for('home')}}">Train Ticket Reservation</a>
+                <img src="/static/logo.jpg" alt="Logo" class="logo-img">
+                <h1>Train Ticket Reservation</h1>
             </div>
             <div class="nav-links">
                 {% if 'user_id' in session %}
@@ -52,13 +56,19 @@
         
         <!-- Train Picture -->
         <div class="train-img">
-            <img src="\static\train_image.jpg" alt="Train Image">
+            <img src="/static/train_image.jpg" alt="Train Image">
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 Train Ticket Reservation. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
     </footer>
 </body>
 </html>

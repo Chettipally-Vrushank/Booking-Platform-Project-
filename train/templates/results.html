@@ -5,40 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Train Search Results</title>
     <link rel="stylesheet" href="/static/dstyle.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h2>Available Trains from {{ from_station }} to {{ to_station }} on {{ date }}</h2>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navbar">
+            <div class="logo">
+                <img src="/static/logo.jpg" alt="Logo" class="logo-img">
+                <h1>Train Ticket Reservation</h1>
+            </div>
+            <div class="nav-links">
+                <a href="{{url_for('home')}}">Home</a>
+                <a href="{{url_for('about')}}">About</a>
+                <a href="{{url_for('dashboard')}}">Search</a>
+                <a href="{{url_for('logout')}}">Logout</a>
+            </div>
+        </div>
+    </nav>
 
-    {% if trains %}
-    <table>
-        <tr>
-            <th>Train No</th>
-            <th>Train Name</th>
-            <th>Arrival Time</th>
-            <th>Departure Time</th>
-            <th>Distance (km)</th>
-            <th>General Fare</th>
-            <th>Sleeper Fare</th>
-            <th>AC Fare</th>
-        </tr>
-        {% for train in trains %}
-        <tr>
-            <td>{{ train[0] }}</td>
-            <td>{{ train[1] }}</td>
-            <td>{{ train[2] }}</td>
-            <td>{{ train[3] }}</td>
-            <td>{{ train[4] }}</td>
-            <td>{{ train[5] }}</td>
-            <td>{{ train[6] }}</td>
-            <td>{{ train[7] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% else %}
-    <p>No trains found between {{ from_station }} and {{ to_station }}.</p>
-    {% endif %}
+    <!-- Results Section -->
+    <section class="results">
+        <h2>Available Trains from {{ from_station }} to {{ to_station }} on {{ date }}</h2>
 
-    <br>
-    <a href="{{ url_for('dashboard') }}">Back to Search</a>
+        {% if trains %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Train No</th>
+                    <th>Train Name</th>
+                    <th>Arrival Time</th>
+                    <th>Departure Time</th>
+                    <th>Distance (km)</th>
+                    <th>General Fare</th>
+                    <th>Sleeper Fare</th>
+                    <th>AC Fare</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for train in trains %}
+                <tr>
+                    <td>{{ train[0] }}</td>
+                    <td>{{ train[1] }}</td>
+                    <td>{{ train[2] }}</td>
+                    <td>{{ train[3] }}</td>
+                    <td>{{ train[4] }}</td>
+                    <td>{{ train[5] }}</td>
+                    <td>{{ train[6] }}</td>
+                    <td>{{ train[7] }}</td>
+                    <td>
+                        <a href=# class="book-button">Book Now</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-trains">No trains found between {{ from_station }} and {{ to_station }}.</p>
+        {% endif %}
+
+        <br>
+        <a href="{{ url_for('dashboard') }}" class="back-button">Back to Search</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Train Ticket Reservation. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
 </body>
 </html>

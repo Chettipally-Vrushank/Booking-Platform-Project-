@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Train Ticket Reservation</title>
     <link rel="stylesheet" href="/static/hstyle.css">
-    <!-- Optionally include Bootstrap or font-awesome for better styling -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav>
         <div class="navbar">
             <div class="logo">
+                <img src="/static/logo.jpg" alt="Logo" class="logo-img">
                 <h1>Train Ticket Reservation</h1>
             </div>
             <div class="nav-links">
@@ -31,7 +35,7 @@
         </div>
     </nav>
 
-    <!-- Home Section (Hero Image & Welcome Text) -->
+    <!-- Hero Section with Background Image -->
     <section class="hero">
         <div class="hero-content">
             <h1>Welcome to Train Ticket Reservation</h1>
@@ -40,32 +44,45 @@
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Features Section with Icons and Hover Effects -->
     <section class="features">
-        <div class="feature">
+        <div class="feature-card">
+            <i class="fas fa-train"></i>
             <h2>Book Train Tickets</h2>
             <p>Reserve your seat with just a few clicks.</p>
         </div>
-        <div class="feature">
+        <div class="feature-card">
+            <i class="fas fa-clock"></i>
             <h2>Real-Time Updates</h2>
             <p>Stay informed with real-time train schedules and availability.</p>
         </div>
-        <div class="feature">
+        <div class="feature-card">
+            <i class="fas fa-shield-alt"></i>
             <h2>Secure Payment</h2>
             <p>Make payments securely with our integrated payment system.</p>
         </div>
     </section>
 
-    <!-- Call to Action Section -->
-    <section class="cta">
-        <h2>Ready to Book Your Ticket?</h2>
-        <p>Sign up now to get started!</p>
-        <a href="{{url_for('register')}}" class="cta-button">Sign Up</a>
+    <!-- Call to Action Section with Parallax Effect -->
+    <section class="cta-parallax">
+        <div class="cta-content">
+            <h2>Ready to Book Your Ticket?</h2>
+            <p>Sign up now to get started!</p>
+            <a href="{{url_for('register')}}" class="cta-button">Sign Up</a>
+        </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer with Social Media Links -->
     <footer>
-        <p>&copy; 2025 Train Ticket Reservation. All Rights Reserved.</p>
+        <div class="footer-content">
+            <p>&copy; 2025 Train Ticket Reservation. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
