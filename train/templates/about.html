@@ -20,16 +20,19 @@
             </div>
             <div class="nav-links">
                 {% if 'user_id' in session %}
-                <a href="{{url_for('home')}}">Home</a>
-                <a href="{{url_for('about')}}">About</a>
-                <a href="{{url_for('dashboard')}}">Search</a>
-                <a href="{{url_for('logout')}}">Logout</a>
+                <a href="{{url_for('home')}}"><i class="fas fa-home"></i> Home</a>
+                <a href="{{url_for('about')}}"><i class="fas fa-info-circle"></i> About</a>
+                <a href="{{url_for('dashboard')}}"><i class="fas fa-search"></i> Search</a>
+                <a href="{{url_for('profile')}}" class="profile-link">
+                    <i class="fas fa-user"></i> My Profile
+                </a>
+                <a href="{{url_for('logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 {%else%}
-                <a href="{{url_for('home')}}">Home</a>
-                <a href="{{url_for('about')}}">About</a>
-                <a href="{{url_for('dashboard')}}">Search</a>
-                <a href="{{url_for('login')}}">Login</a>
-                <a href="{{url_for('register')}}">Register</a>
+                <a href="{{url_for('home')}}"><i class="fas fa-home"></i> Home</a>
+                <a href="{{url_for('about')}}"><i class="fas fa-info-circle"></i> About</a>
+                <a href="{{url_for('dashboard')}}"><i class="fas fa-search"></i> Search</a>
+                <a href="{{url_for('login')}}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <a href="{{url_for('register')}}"><i class="fas fa-user-plus"></i> Register</a>
                 {%endif%}
             </div>
         </div>

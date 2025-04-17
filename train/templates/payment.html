@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment - Train Ticket Reservation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dstyle.css') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .payment-container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            padding: 2rem;
+        }
+
+        .site-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .site-logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+        }
+
+        .site-logo h2 {
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .payment-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #444;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f8f8;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            background: white;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: #f8f8f8;
+            border-radius: 10px;
+        }
+
+        .card-icons img {
+            height: 35px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            filter: grayscale(20%);
+        }
+
+        .card-icons img:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        button[type="submit"]:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        /* Input placeholder styling */
+        ::placeholder {
+            color: #999;
+        }
+
+        /* Card number input styling */
+        input[name="card_number"] {
+            letter-spacing: 0.1em;
+            font-family: monospace;
+        }
+
+        /* CVV input styling */
+        input[name="cvv"] {
+            letter-spacing: 0.2em;
+            font-family: monospace;
+        }
+
+        /* Error state */
+        .form-group input:invalid {
+            border-color: #ff6b6b;
+        }
+
+        /* Success state */
+        .form-group input:valid:not(:placeholder-shown) {
+            border-color: #4CAF50;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 480px) {
+            .payment-container {
+                padding: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script>
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            value = value.substring(0, 16);
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += ' ';
+                }
+                formattedValue += value[i];
+            }
+            input.value = formattedValue;
+        }
+
+        function limitCVV(input) {
+            let value = input.value.replace(/\D/g, '');
+            input.value = value.substring(0, 3);
+        }
+    </script>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="site-logo">
+            <img src="/static/logo.jpg" alt="Logo">
+            <h2>Train Ticket Reservation</h2>
+        </div>
+        <div class="payment-header">
+            <h1>Complete Your Payment</h1>
+            <p>Please enter your card details to proceed</p>
+        </div>
+        <form method="POST" action="{{ url_for('payment') }}">
+            <div class="form-group">
+                <label for="name">
+                    <i class="fas fa-user"></i> Name on Card
+                </label>
+                <input type="text" id="name" name="name" placeholder="Enter cardholder's name" required>
+            </div>
+            <div class="form-group">
+                <label for="card-number">
+                    <i class="fas fa-credit-card"></i> Card Number
+                </label>
+                <input type="text" id="card-number" name="card_number" 
+                       placeholder="1234 5678 9012 3456" 
+                       oninput="formatCardNumber(this)" 
+                       maxlength="19" required 
+                       pattern="[0-9 ]{19}">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="expiry-date">
+                        <i class="fas fa-calendar"></i> Expiry Date
+                    </label>
+                    <input type="month" id="expiry-date" name="expiry_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">
+                        <i class="fas fa-lock"></i> CVV
+                    </label>
+                    <input type="password" id="cvv" name="cvv" 
+                           placeholder="•••" 
+                           oninput="limitCVV(this)" 
+                           maxlength="3" required 
+                           pattern="[0-9]{3}">
+                </div>
+            </div>
+            <div class="card-icons">
+                <img src="/static/mc.png" alt="Mastercard" title="Mastercard">
+                <img src="/static/vi.png" alt="Visa" title="Visa">
+                <img src="/static/pp.png" alt="PayPal" title="PayPal">
+            </div>
+            <button type="submit">
+                <i class="fas fa-lock"></i> Pay Securely
+            </button>
+        </form>
+    </div>
+    <a href="{{ url_for('dashboard') }}" class="back-link">
+        <i class="fas fa-arrow-left"></i> Return to Dashboard
+    </a>
+</body>
+</html>

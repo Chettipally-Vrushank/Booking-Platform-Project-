@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="/static/dstyle.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .profile-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #ddd;
+        }
+        .profile-pic-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-info {
+            text-align: center;
+        }
+        .profile-name {
+            font-size: 2rem;
+            margin: 0;
+            color: #333;
+        }
+        .profile-email {
+            color: #666;
+            margin: 0.5rem 0;
+        }
+        .upload-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-section {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .profile-section h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .change-name-form {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+        .change-name-form input {
+            flex: 1;
+            max-width: 400px;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+        .change-name-form button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .change-name-form button:hover {
+            background: #45a049;
+        }
+        .booking-history-item {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        .booking-status {
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .booking-status.confirmed {
+            background: #e3f9e5;
+            color: #1b873f;
+        }
+        .booking-status.pending {
+            background: #fff3dc;
+            color: #945e00;
+        }
+        .booking-status.cancelled {
+            background: #ffefef;
+            color: #dc2626;
+        }
+        .booking-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .journey-details p {
+            margin: 0.5rem 0;
+            color: #4b5563;
+        }
+        .passenger-details {
+            grid-column: span 2;
+        }
+        .passenger-details h4 {
+            margin: 0 0 0.5rem 0;
+            color: #374151;
+        }
+        .passenger-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .passenger-details li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .passenger-details li:last-child {
+            border-bottom: none;
+        }
+        .fare-details {
+            grid-column: span 2;
+            text-align: right;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        .total-fare {
+            font-size: 1.2rem;
+            color: #374151;
+            margin: 0;
+        }
+        .no-bookings {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        .book-now-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .book-now-btn:hover {
+            background: #45a049;
+        }
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: fadeInOut 3s ease-in-out;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        Profile picture updated successfully!
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navbar">
+            <div class="logo">
+                <img src="/static/logo.jpg" alt="Logo" class="logo-img">
+                <h1>Train Ticket Reservation</h1>
+            </div>
+            <div class="nav-links">
+                <a href="{{url_for('home')}}"><i class="fas fa-home"></i> Home</a>
+                <a href="{{url_for('about')}}"><i class="fas fa-info-circle"></i> About</a>
+                <a href="{{url_for('dashboard')}}"><i class="fas fa-search"></i> Search</a>
+                <a href="{{url_for('profile')}}" class="profile-link">
+                    <i class="fas fa-user"></i> My Profile
+                </a>
+                <a href="{{url_for('logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-pic-container">
+                {% if profile_pic %}
+                    <img src="{{ url_for('static', filename='profile-pics/' + profile_pic) }}?t={{ timestamp }}" 
+                         class="profile-pic" id="profilePicture" 
+                         alt="Profile Picture">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/default-profile.jpg') }}" 
+                         class="profile-pic" id="profilePicture" 
+                         alt="Default Profile Picture">
+                {% endif %}
+                <button type="button" class="upload-btn" onclick="document.getElementById('profilePicInput').click()">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <input type="file" id="profilePicInput" accept="image/*" style="display: none;" onchange="uploadProfilePic(this)">
+            </div>
+            <div class="profile-info">
+                <h1 class="profile-name">{{ session['user_name'] }}</h1>
+                <p class="profile-email">{{ session['user_email'] }}</p>
+            </div>
+        </div>
+
+        <!-- Change Name Section -->
+        <div class="profile-section">
+            <h2>Change Name</h2>
+            <form class="change-name-form" action="{{url_for('change_name')}}" method="post">
+                <input type="text" name="newName" value="{{session['user_name']}}" required>
+                <button type="submit">Update Name</button>
+            </form>
+        </div>
+
+        <!-- Booking History Section -->
+        <div class="profile-section">
+            <h2>Booking History</h2>
+            {% if bookings %}
+                {% for booking in bookings %}
+                <div class="booking-history-item">
+                    <div class="booking-header">
+                        <h3>Booking #{{ booking.booking_number }}</h3>
+                    </div>
+                    
+                    <div class="booking-details">
+                        <div class="journey-details">
+                            <p><strong>Train:</strong> {{ booking.train_name }} ({{ booking.train_no }})</p>
+                            <p><strong>From:</strong> {{ booking.from_station }}</p>
+                            <p><strong>To:</strong> {{ booking.to_station }}</p>
+                            <p><strong>Journey Date:</strong> {{ booking.journey_date }}</p>
+                            <p><strong>Booking Date:</strong> {{ booking.booking_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                            <p><strong>Total Fare:</strong> ₹{{ booking.total_fare }}</p>
+                        </div>
+                        
+                        <div class="passenger-details">
+                            <h4>Passenger Details</h4>
+                            <ul>
+                                {% for passenger in booking.passengers|from_json %}
+                                <li>
+                                    {{ passenger.name }} ({{ passenger.age }} years, {{ passenger.gender }}) - 
+                                    {{ passenger.class|title }} Class
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-bookings">
+                    <p>No bookings found. Start your journey by booking a train ticket!</p>
+                    <a href="{{ url_for('dashboard') }}" class="book-now-btn">Book Now</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function uploadProfilePic(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                console.log('Selected file:', file.name); // Debug log
+                
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                // Show loading overlay
+                document.getElementById('loadingOverlay').style.display = 'flex';
+                
+                fetch('{{ url_for("upload_profile_pic") }}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    console.log('Response status:', response.status); // Debug log
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response data:', data); // Debug log
+                    if (data.success) {
+                        // Update profile picture with cache-busting query parameter
+                        const profilePic = document.getElementById('profilePicture');
+                        const newSrc = `{{ url_for('static', filename='profile-pics/') }}${data.filename}?t=${new Date().getTime()}`;
+                        console.log('New image source:', newSrc); // Debug log
+                        profilePic.src = newSrc;
+                        
+                        // Show success message
+                        const successMessage = document.getElementById('successMessage');
+                        successMessage.style.display = 'block';
+                        
+                        // Hide success message after 3 seconds
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 3000);
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while uploading the profile picture');
+                })
+                .finally(() => {
+                    // Hide loading overlay
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                });
+            }
+        }
+    </script>
+</body>
+</html> 
